@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="row">
     <div class="col-12 col-md-3 pr-4 dont-move">
@@ -150,8 +151,8 @@
                                 class="rounded-circle mr-2"
                                 src="{{ post.user.picture.url }}"
                                 style="width: 20px; height: 20px;">
-                        <a class="mr-2 " href="">
-                            {{ post.user.username }}
+                        <a class="mr-2 " href="{% url 'profile_view' post.user.username %}">
+                            view <span style="color:blue;font-weight:bold;">{{ post.user.username }}'s</span> profile
                         </a>
                     </div>
                 </div>
@@ -337,8 +338,8 @@
                 <div class="form-holder">
                     <form action="{% url 'email-list-signup' %}" method="POST">
                         {% csrf_token %}
-                        <div class="form-group">
-                            {{ form }}
+                        <div class="form-group w-100">
+                            {{ form|crispy }}
                             <button class="btn btn-primary" type="submit">Signup</button>
                         </div>
                     </form>

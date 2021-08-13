@@ -7,6 +7,7 @@ class EmailSignupForm(forms.ModelForm):
         "type": "email",
         "name": "email",
         "id": "email",
+        "class":"form-field",
         "placeholder": "Type your email address",
     }), label="")
 

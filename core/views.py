@@ -1,3 +1,5 @@
+import datetime
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
@@ -6,6 +8,8 @@ from django.db.models import Count, Q
 import sys
 from core.models import *
 from core.forms import PostCreateForm
+from marketing.forms import EmailSignupForm
+from marketing.models import Signup
 
 User = get_user_model()
 
@@ -47,7 +51,7 @@ def is_users(post_user, logged_user):
 
 class HomeView(LoginRequiredMixin, ListView):
     model = Post
-    form_class = PostCreateForm
+    form_class = EmailSignupForm
     template_name = 'core/feed.html'
     context_object_name = 'all_posts'
     ordering = ['-created_on']
@@ -59,11 +63,26 @@ class HomeView(LoginRequiredMixin, ListView):
         all_users = []
         data_counter = Post.objects.values('user').annotate(author_count=Count('user')).order_by('-author_count')[:6]
 
+        featured = Post.objects.filter(featured=True)
+        latest = Post.objects.order_by('-created_on')[0:3]
+
         for aux in data_counter:
-            all_users.append(User.objects.filter(pk=aux['user']).first())
-        data['all_users'] = all_users
+
+
+            all_users.append(User.objects.filter(pk=aux['user']).order_by('-posts__created_on').first())
+        data['all_users'] = all_users[:5]
+        data['featured'] = featured[:3]
+        data['latest'] = latest[:3]
         print(all_users, file=sys.stderr)
         return data
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get("email")
+        new_signup = Signup()
+        new_signup.email = email
+        new_signup.save()
+        messages.info(request, "Successfully subscribed")
+        return redirect("home_feed_view")
 
     def get_queryset(self):
         user = self.request.user
@@ -72,6 +91,7 @@ class HomeView(LoginRequiredMixin, ListView):
         for obj in qs:
             follows.append(obj.followed)
         return Post.objects.filter(user__in=follows).order_by('-created_on')
+
 
 
 class PostDetailView(View):

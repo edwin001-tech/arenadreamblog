@@ -46,5 +46,5 @@ class User(AbstractUser):
 
     @property
     def posts_count(self):
-        count = self.post_set.count()
+        count = self.posts.count()
         return count

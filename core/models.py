@@ -27,7 +27,7 @@ class Post(models.Model):
     overview = models.TextField(blank=True, null=True)
     content = models.TextField(blank=True, null=True)  # null == None, blank = ''
     image = models.ImageField(upload_to='post_images')   # BASE_DIR -> media -> post_images
-    user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False)    # user_id
+    user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False,related_name='posts')    # user_id
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField(Category)
