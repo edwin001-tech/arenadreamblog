@@ -12,15 +12,22 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# Add .env variables anywhere before SECRET_KEY
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SITE_SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -140,15 +147,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'infotdbsoft@gmail.com'
-EMAIL_HOST_PASSWORD = 'tbdsoft@root'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_USER_PASS']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'emails'
 
 
-MAILCHIMP_API_KEY = ''
-MAILCHIMP_DATA_CENTER = ''
-MAILCHIMP_EMAIL_LIST_ID = ''
+MAILCHIMP_API_KEY = os.environ['MAILCHIMP_API_KEY']
+MAILCHIMP_DATA_CENTER = os.environ['MAILCHIMP_DATA_CENTER']
+MAILCHIMP_EMAIL_LIST_ID = os.environ['MAILCHIMP_EMAIL_LIST_ID']
 
 # Django Allauth
 AUTHENTICATION_BACKENDS = (
