@@ -22,7 +22,7 @@ Fully functional Django App that looks ecxatly like real Twitter with some bette
 ## License
 MIT License
 
-Copyright (c) 2020 Redian Marku
+Copyright (c) 2021 by TDBSoft
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
