@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'core.apps.CoreConfig',
     'marketing',
+    'siteconfig',
     'user.apps.UserConfig',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -78,6 +79,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.about_org',
+                'core.context_processors.postfooter',
+                'core.context_processors.gallery',
+                'core.context_processors.contacts',
+                'core.context_processors.customname',
             ],
         },
     },
