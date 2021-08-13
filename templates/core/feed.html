@@ -1,0 +1,360 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-12 col-md-3 pr-4 dont-move">
+        <a href="/"><h2 style="text-transform:uppercase;color:blue;"><img class="img-fluid" height="80%"
+                                                                          src="{% static 'blog/logo.png' %}"
+                                                                          style="border-radius:50%;" width="30%">Kimfity
+            kim</h2></a><br>
+        <div class="profile-section">
+            <h3 class=" p-2">
+                Profile
+            </h3>
+            <article class="media content-section" style="height: 140px; width: 100%">
+                {% if user_profile != None %}
+                <div class="mt-2 d-flex full-width align-items-center">
+                    {% if user.picture.url != '' %}
+                    <img class="rounded-circle mr-2" src="{{ user.picture.url }}" style="width: 20px; height: 20px;">
+                    {% else %}
+                    <img class="rounded-circle mr-2" src="{% static 'default.png' %}"
+                         style="width: 20px; height: 20px;">
+                    {% endif %}
+                    <div>
+                        <h4 class=""
+                            style="text-align: left">
+                            {{ user_profile.username }}
+                        </h4>
+                        <h6 class="email-profile"
+                            style="text-align: left">
+                            {{ user.email }}
+                        </h6>
+
+                    </div>
+                </div>
+                {% else %}
+                <div class="mt-2 d-flex full-width align-items-center">
+                    <img
+                            class="rounded-circle mr-3"
+                            src="{{ user.picture.url }}"
+                            style="width: 90px; height: 90px;">
+                    <div>
+                        <h4 class=""
+                            style="text-align: left">
+                            {{ user.username }}
+                        </h4>
+                        <h6 class="email-profile"
+                            style="text-align: left">
+                            {{ user.email }}
+                        </h6>
+                    </div>
+                </div>
+                {% endif %}
+            </article>
+            <article class="media content-section">
+                <div class="row full-width pl-2">
+                    <div class="col-6">
+                        Followers
+                    </div>
+                    <div class="col-6">
+                        Following
+                    </div>
+                    {% if user != None %}
+                    <div class="col-6">
+                        <h3 class=" follow-click">
+                            <a href="">
+                                {{ user.following_count }}
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="col-6">
+                        <a href="">
+                            <h3 class=" follow-click">
+                                {{ user.follower_count }}
+                            </h3>
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="col-6">
+                        <a href="">
+                            <h3 class=" follow-click">
+                                {{ user.followeing_count }}
+                            </h3>
+                        </a>
+                    </div>
+
+                    <a href="">
+                        <div class="col-6">
+                            <h3 class=" follow-click">
+                                {{ user.follower_count }}
+                            </h3>
+                        </div>
+                    </a>
+                    {% endif %}
+                </div>
+            </article>
+
+            <div class="d-flex">
+                {% if user_profile is None %}
+                <div style="margin-left: auto; margin-right:auto">
+                    <a class="btn btn-sm btn-outline-primary mb-4 mr-3 " href="{% url 'post_create_view' %}">
+                        Start Blogging
+                    </a>
+                </div>
+                {% endif %}
+                {% if user_profile is not None and user_profile.id != user.id and user.username != '' %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <button class="btn btn-sm btn-outline-primary"
+                                name="{% if can_follow %}follow{% else %}unfollow{% endif %}"
+                                style="margin-left: 18px"
+                                type="submit">
+                            {% if can_follow %}
+                            FOLLOW
+                            {% else %}
+                            UNFOLLOW
+                            {% endif %}
+                        </button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 scrollable">
+        <div class="full-width row">
+            <div class="col-6">
+                <h3 class=" mb-3" style="color:gray;">
+                    Recent Blog Posts
+                </h3>
+            </div>
+            <div class="col-6 no-padding">
+                <h6
+                        class=" mb-3"
+                        style="position: absolute; bottom: 0; right: 0">
+                    {{ page_obj.start_index }} - {{ page_obj.end_index }} of
+                    {{ paginator.count }}
+                </h6>
+            </div>
+        </div>
+
+        {% for post in all_posts %}
+        <article class="media content-section hovered-tweet" style="background:  #f07453;">
+            <div style="width: 100%; word-break: break-all;">
+                <div class="pb-2 row m-0" style="width: 100%; margin-right: 0 !important;">
+                    <div
+                            class="col-8 no-padding d-flex align-items-center"
+                            style="padding-left: 0px !important;">
+                        <img
+                                class="rounded-circle mr-2"
+                                src="{{ post.user.picture.url }}"
+                                style="width: 20px; height: 20px;">
+                        <a class="mr-2 " href="">
+                            {{ post.user.username }}
+                        </a>
+                    </div>
+                </div>
+                <div class="mb-2" style="width: 100%; height: 1px; background-color: rgba(255, 255, 255, 0.1)"></div>
+                <a href="{% url 'post_detail_view' post.id %}"
+                   style="color: rgba(255, 255, 255, 0.5) !important;">
+                    <p class="mb-4">
+                        {{ post.title }}
+                    </p>
+                    <p class="mb-4">
+                        {{ post.overview }}
+                    </p>
+                </a>
+                <div class="row">
+                    <div class="col-6" style="display: flex;">
+                        <small style="opacity: 0.4;">
+
+                            <!-- Like Buttons Here -->
+                            <a href="" onClick="document.getElementById('likebutton').submit()"><i
+                                    class="fas fa-thumbs-up"></i></a> {{post.likes_count}} |
+                            <a href="#" onClick="document.getElementById('dislikebutton').submit()"><i
+                                    class="fas fa-thumbs-down"></i>
+                            </a> 0 |
+                            <a href="#" onClick="document.getElementById('likebutton').submit()"><i
+                                    class="fas fa-eye"></i></a> {{ post.view_count }}
+
+                            <form action="{% url 'post_like_view' post.id  %}" id="likebutton" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+
+                            <form action="{% url 'post_unlike_view' post.id  %}" id="dislikebutton" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden">
+                            </form>
+
+
+                        </small>
+                        <small style="opacity: 0.4; margin-left:15px;">
+                            <a href="">
+                                <i class="far fa-comment" style=" font-size: 16px;"></i> {{ post.comments_count }}
+                                comment(s)
+                            </a>
+
+                        </small>
+                    </div>
+                    <div class="col-6">
+                        <!-- Link to Open Posts Detail page -->
+                        <a class="text-reset text-decoration-none" href="{% url 'post_detail_view' post.id %}"
+                           type="button">
+                            <strong>Go to Post</strong>
+                        </a>
+                        <!-- Link to Open Posts Detail page End -->
+                        <small class=" d-flex full-width flex-row-reverse"
+                               style="opacity: 0.4;">
+                            {{ post.date_posted | date:"H:i l, d.m.y" }}
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+        {% endfor %}
+                           <!--Gallery-->
+        <h1 class="my-3">GALLERY</h1>
+        <article>
+            <section class="gallery no-padding">
+                <div class="row">
+                    <div class="mix col-lg-3 col-md-3 col-sm-6">
+                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
+                            <img alt="..." class="img-fluid" src="{% static 'blog/logo.png' %}"  width="100%">
+                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                        </a></div>
+                    </div>
+                     <div class="mix col-lg-3 col-md-3 col-sm-6">
+                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
+                            <img alt="..." class="img-fluid" src="{% static 'img/avatar-1.jpg' %}" width="100%">
+                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                        </a></div>
+                    </div>
+                     <div class="mix col-lg-3 col-md-3 col-sm-6">
+                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
+                            <img alt="..." class="img-fluid" src="{% static 'img/avatar-2.jpg' %}"  width="100%">
+                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                        </a></div>
+                    </div>
+                     <div class="mix col-lg-3 col-md-3 col-sm-6">
+                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
+                            <img alt="..." class="img-fluid" src="{% static 'img/avatar-3.jpg' %}"  width="100%">
+                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
+                        </a></div>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br>
+        <div class="full-width d-flex justify-content-center">
+            {% if is_paginated %}
+            {% if page_obj.has_previous %}
+            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+               href="?page=1">First</a>
+            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+               href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a class="btn btn-sm btn-info mb-4 mr-2"
+               href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+               href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+               href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+               href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-12 col-md-3 dont-move">
+        <form action="{% url 'search_blog' %}" method="post">{% csrf_token %}
+            <div class="search-container">
+                <div class="search">
+                    <input id="zip-code-input" name="search" placeholder="Search The Blog" required type="text">
+                    <button style="border:0; background: transparent;" type="submit"><i class="fa fa-search"></i>
+                    </button>
+                    </a>
+        </form>
+    </div>
+</div>
+<h3 class=" mb-3 mt-4"> Trends </h3>
+
+{%  if user_profile is None %}
+
+<article class="t-section media content-section">
+
+    <div class="row ">
+        <div class="col-12">
+            <h3>Who to follow</h3>
+        </div>
+        <ul class="col-12 mt-2" style="list-style:none;">
+            {% for user in all_users %}
+            <li class="">
+                <div class="who-to-follow">
+                    <div
+                            class="col-8 no-padding d-flex align-items-center"
+                            style="padding-left: 0px !important;">
+                        {% if user.picture.url != '' %}
+                        <img class="rounded-circle mr-2" src="{{ user.picture.url }}"
+                             style="width: 20px; height: 20px;">
+                        {% else %}
+                        <img class="rounded-circle mr-2" src="{% static 'default.png' %}"
+                             style="width: 20px; height: 20px;">
+                        {% endif %}
+                        <a class="mr-2 " href="{% url 'profile_view' user.username %}">
+                            {{ user.username }}
+                        </a>
+                    </div>
+                    <p>{{ user.email }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+</article>
+{% endif %}
+<!-- Newsletter Section-->
+<section class="newsletter no-padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Subscribe to our Marketing Newsletter</h2>
+                <p class="text-big">{{Sub_description|first}}.</p>
+            </div>
+            <div class="col-md-8">
+                <div class="form-holder">
+                    <form action="{% url 'email-list-signup' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form }}
+                            <button class="btn btn-primary" type="submit">Signup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Gallery Section-->
+<p><a href="">Terms</a>,
+    <a href="">Privacy policy</a>,
+    <a href="">Cookies</a>,
+    <a href="">Ads info</a>,
+    <a href="">More</a>
+    © 2021 TDBSoft, Inc.</p>
+
+</div>
+</div>
+{% endblock content %}

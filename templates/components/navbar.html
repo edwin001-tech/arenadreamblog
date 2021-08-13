@@ -1,0 +1,105 @@
+{% load static %}
+
+<header class="sticky-top">
+    <nav class="navbar border-bottom py-1" style="background:#E1E8ED;">
+        <div class="container">
+            <a class="navbar-brand" href="/" style="color:blue;text-transform:uppercase;">
+                <img src="{% static 'blog/logo.png' %}" alt="kimfitty" class="nav__insta__logo">kimfity kim
+            </a>
+            <div class="search__input m-auto d-none d-md-block">
+                <!-- Form to search Users -->
+                <form method="GET" action="{% url 'search_users' %}" class="form-inline">
+                    <input type="text" autocapitalize="none" placeholder="Search users" value="" class="form-control"
+                           name="query">
+                    <button type="submit" class="ml-2 btn p-0">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+                <!-- Form to search Users End -->
+
+            </div>
+            <ul class="navbar-nav ml-0 ml-md-auto d-flex flex-row">
+
+                <!-- Home Button -->
+                <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
+                    <a href="{% url 'home_feed_view' %}" class="text-decoration-none text-reset"><span
+                            class="nav__icons fa fa-home fa-lg"></span></a>
+                </li>
+
+                <!-- Explore View Button -->
+                <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
+                    <a href="{% url 'explore_posts_view' %}" class="text-decoration-none text-reset"><span
+                            class="nav__icons far fa-compass fa-lg"></span></a>
+                </li>
+
+                <!-- Liked Posts Button -->
+                <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
+                    <a href="{% url 'liked_posts_view' %}" class="text-decoration-none text-reset"><span
+                            class="nav__icons far fa-heart"></span></a>
+                </li>
+
+                <!-- Dropdown for more menu -->
+                <li class="nav-item dropdown ml-2">
+                    <a class="text-decoration-none text-reset settings__icon d-flex justify-content-center"
+                       data-toggle="modal" data-target="#settings_list">
+                        <!-- User's Profile Picture -->
+                        {% if request.user.picture %}
+                        <img src="{{ request.user.picture.url }}" class="rounded-circle z-depth-0" width="20%">
+                        {% else %}
+                        <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                             class="rounded-circle z-depth-0"  width="20%">
+                        {% endif %}
+                        <!-- User's Profile Picture End -->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+ <!-- All Modals in this page -->
+    <!-- dropdown Modal -->
+    <div class="modal fade" id="settings_list" tabindex="-1" aria-labelledby="settings_list_label" aria-hidden="true"
+         style="color:black;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body p-0 py-2 text-center">
+                    <!-- Edit Profile Button -->
+                    <div class="p-1 m-0 px-4">
+                        <a href="{% url 'profile_view' request.user.username %}"
+                           class="text-reset text-decoration-none" style="color:black;">Profile</a>
+                    </div>
+                    <!-- Edit Profile Button end -->
+                    <!-- Saved Post Button -->
+                    <div class="p-1 m-0 px-4">
+                        <a href="{% url 'saved_posts_view' %}"
+                           class="text-reset text-decoration-none" style="color:black;">
+                            <span class="mr-3 fa fa-bookmark"></span>Saved</a>
+                    </div>
+                    <!-- End Saved Post Button -->
+                    <div class="dropdown-divider"></div>
+                    <!-- Change password button -->
+                    <div class="p-1 m-0 px-4">
+                        <a href="{% url 'password_change_view' %}" class="text-reset text-decoration-none"
+                           style="color:black;">Change Password</a>
+                    </div>
+                    <!-- Change password button end -->
+                    <div class="dropdown-divider"></div>
+                    <div class="p-1 m-0 px-4">
+                        <!-- Signout button -->
+                        <form method="POST" action="{% url 'signout_view' %}">
+                            {% csrf_token %}
+                            <a href="javascript:;" onclick="parentNode.submit();"
+                               class="text-reset text-decoration-none" style="color:black;">Sign Out</a>
+                        </form>
+                        <!-- Signout button end -->
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="p-1 m-0 px-4">
+                        <a data-dismiss="modal" style="cursor: pointer;">Cancel</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- dropdown Modal end -->
