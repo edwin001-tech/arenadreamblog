@@ -68,3 +68,46 @@ class Gallery(models.Model):
         verbose_name_plural="Gallery"
 
 
+class Site_Policies(models.Model):
+    terms=models.TextField(max_length=255,default='Add site terms and conditions here')
+    privacy_policy=models.TextField(max_length=255,default='Add your privacy policy here')
+    cookies_policy = models.TextField(max_length=255, default='Add your coockies policy here')
+    adds_info = models.TextField(max_length=255, default='Add info')
+
+    def __str__(self):
+        return "Site Policies"
+    class Meta:
+        verbose_name_plural='Site Policies'
+
+
+class ThirdParty(models.Model):
+    third_party_name=models.CharField(max_length=100,default='TDBSoft')
+    third_party_site=models.URLField(max_length=255,default='tdbsoft.pythonanywhere.com')
+    third_party_phone = models.TextField(max_length=15, default='+254743793901')
+    third_party_email = models.EmailField(max_length=255, default='infotdbsoft@gmail.com')
+
+    def __str__(self):
+        return self.third_party_name
+
+    class Meta:
+        verbose_name_plural='Third Party'
+
+class FQA(models.Model):
+    question=models.TextField(max_length=255,default='Question 1')
+    answer=models.TextField(max_length=255,default='Answer for question 1')
+
+    def __str__(self):
+        return f'Question:{self.question}? \n - Answer:{self.answer}'
+
+class Howitworks(models.Model):
+    title=models.CharField(max_length=100,default='Title')
+    content=models.TextField(max_length=255,default='Content')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'How it works'
+
+
+

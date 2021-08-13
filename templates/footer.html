@@ -34,7 +34,11 @@
                 <div class="menus d-flex">
                     <ul class="list-unstyled" style="font-weight:bold;">
                         <h1 class="my-4" style="text-transform:uppercase">More Links</h1>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'profile_view' request.user.username %}">My Account</a></li>
+                        {% else %}
                         <li><a href="{% url 'signin_view' %}">My Account</a></li>
+                        {% endif %}
                         <li><a href="#">Add Listing</a></li>
                         <li><a href="#">Pricing</a></li>
                         <li><a href="#">Privacy &amp; Policy</a></li>
