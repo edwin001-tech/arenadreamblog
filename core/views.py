@@ -31,19 +31,24 @@ def search_blog(request):
     }
     return render(request, 'search_blog.html', context)
 
-context={}
+#search users
+class AllProfilesView(LoginRequiredMixin,View):
+    template_name = 'user/all_post_categories.html'
 
-@login_required
-def search_users(request):
-    if request.method == 'POST':
-        kerko = request.POST.get('search')
-        print(kerko)
-        results = User.objects.filter(username__contains=kerko)
-        global context
-        context = {
-            'results':results
-        }
-    return render(request, 'search_users.html', context)
+    def get(self, request, *args, **kwargs):
+        search_term = request.GET.get('query')
+
+        if search_term:
+            all_profiles = User.objects.filter(
+                    Q(username__contains=search_term) | Q(full_name__contains=search_term)
+                ).exclude(
+                    username=request.user.username
+                )
+        else:
+            all_profiles = User.objects.none()
+
+        context = {'all_profiles': all_profiles}
+        return render(request, self.template_name, context=context)
 
 def is_users(post_user, logged_user):
     return post_user == logged_user
@@ -292,3 +297,12 @@ class ExplorePostsView(View):
         all_posts = Post.objects.annotate(count=Count('like')).order_by('-count')
         context = {'all_posts': all_posts}
         return render(request, self.template_name, context=context)
+
+def category(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+
+    return render(request, 'core/all_post_categories.html', {'category': category})
+
+
+def categorypage(request):
+    return render(request, 'core/all_post_categories.html')

@@ -11,7 +11,7 @@ urlpatterns = [
 
     # post related urls
     path('search/blog/', search_blog, name='search_blog'),
-    path('search/users/', search_users, name='search_users'),
+    path('search/users/', AllProfilesView.as_view(), name='search_users'),
     path('post/<int:id>/', login_required(PostDetailView.as_view()), name='post_detail_view'),
     path('post/create/', login_required(PostCreateView.as_view()), name='post_create_view'),
     path('post/update/<int:id>/', login_required(PostUpdateView.as_view()), name='post_update_view'),
@@ -22,6 +22,8 @@ urlpatterns = [
     path('post/liked/', login_required(LikedPostsView.as_view()), name='liked_posts_view'),
     path('post/saved/', login_required(SavedPostsView.as_view()), name='saved_posts_view'),
     path('post/explore/', login_required(ExplorePostsView.as_view()), name='explore_posts_view'),
+    path('<slug:category_slug>/',category, name='category'),
+    path('post/categories/page/', categorypage, name='category_page'),
 
     path('post/like/<int:id>/', PostLikeView.as_view(), name='post_like_view'),
     path('post/unlike/<int:id>/', PostUnlikeView.as_view(), name='post_unlike_view'),

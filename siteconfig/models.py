@@ -47,7 +47,7 @@ class About(models.Model):
     instagram=models.URLField(default='instagram.com')
     tiktok = models.URLField(default='tiktok.com')
     linkedin = models.URLField(default='linkedin.com')
-    other=models.URLField(default="enter any aditional social media url",blank=True,null=True)
+    other=models.URLField(default="example.com",blank=True,null=True)
     rights_year=models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -76,6 +76,7 @@ class Site_Policies(models.Model):
 
     def __str__(self):
         return "Site Policies"
+
     class Meta:
         verbose_name_plural='Site Policies'
 
@@ -99,6 +100,9 @@ class FQA(models.Model):
     def __str__(self):
         return f'Question:{self.question}? \n - Answer:{self.answer}'
 
+    class Meta:
+        verbose_name_plural = 'FQA'
+
 class Howitworks(models.Model):
     title=models.CharField(max_length=100,default='Title')
     content=models.TextField(max_length=255,default='Content')
@@ -108,6 +112,15 @@ class Howitworks(models.Model):
 
     class Meta:
         verbose_name_plural = 'How it works'
+
+class UpdateLogo(models.Model):
+    image=models.ImageField(upload_to='logo/',default='logo.png')
+
+    class Meta:
+        verbose_name_plural = 'Update Logo'
+
+    def __str__(self):
+        return self.image.url
 
 
 

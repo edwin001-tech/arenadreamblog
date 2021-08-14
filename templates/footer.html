@@ -41,14 +41,14 @@
                         {% endif %}
                         <li><a href="#">Add Listing</a></li>
                         <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Privacy &amp; Policy</a></li>
+                        <li><a href="{% url 'site_policies_view' %}">Privacy &amp; Policy</a></li>
                     </ul>
                     <ul class="list-unstyled" style="font-weight:bold;">
                         <h1 class="my-3" style="text-transform:uppercase">Quick Links</h1>
-                        <li><a href="#">Our Partners</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="">Contacts</a></li>
+                        <li><a href="{% url 'our_partners_view' %}">Our Partners</a></li>
+                        <li><a href="{% url 'faq_view' %}">FAQ</a></li>
+                        <li><a href="{% url 'how_it_works_view' %}">How It Works</a></li>
+                        <li><a href="{% url 'contacts' %}">Contacts</a></li>
                     </ul>
                 </div>
             </div>

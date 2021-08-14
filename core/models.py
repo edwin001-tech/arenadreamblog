@@ -17,9 +17,14 @@ class PostView(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=20)
+    category_image=models.ImageField(upload_to='category/images/',default='logo/logo.png')
+    slug=models.SlugField(max_length=255)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural='Post Categories'
 
 # Posts Model
 class Post(models.Model):
@@ -30,7 +35,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT, editable=False,related_name='posts')    # user_id
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    categories = models.ManyToManyField(Category)
+    categories = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='posts')
     featured = models.BooleanField(blank=True, null=True)
 
     class Meta:

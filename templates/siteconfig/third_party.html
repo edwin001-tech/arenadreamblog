@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title%} Policies|{% endblock %}
+
+{% block content %}
+<div class="container" style="color:black;">
+    <div class="row">
+        <div class="col-12 my-4">
+            <div class="card profile__edit__card m-auto" style="color:black;">
+                <div class="card-header">
+                    <h3 class="m-0" style="color: #5f5f5f;">{{tag_line}}</h3>
+                </div>
+                {% for third_party in third_parties %}
+                <div class="card-body offset-md-2" style="color:black;">
+                    <h3 style="font-weight:bold; color:blue;" class="my-4">Name</h3>
+                    <p>{{third_party.third_party_name}}</p>
+                    <h3 style="font-weight:bold; color:blue;" class="my-4">TEL</h3>
+                    <p>{{third_party.third_party_phone}}</p>
+                    <h3 style="font-weight:bold; color:blue;" class="my-4">EMAIL</h3>
+                    <p><a href="mailto={{third_party.third_party_email}}">{{third_party.third_party_email}}</a></p>
+                    <h3 style="font-weight:bold; color:blue;" class="my-4">WEBSITE</h3>
+                    <p><a href="{{third_party.third_party_site}}">{{third_party.third_party_site}}</a></p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
+
+
+

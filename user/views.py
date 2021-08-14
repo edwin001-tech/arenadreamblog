@@ -67,7 +67,7 @@ class ProfileEditView(View):
 
 
 class AllProfilesView(View):
-    template_name = 'user/all_profiles.html'
+    template_name = 'user/all_post_categories.html'
 
     def get(self, request, *args, **kwargs):
         search_term = request.GET.get('query')

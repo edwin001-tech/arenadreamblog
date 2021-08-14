@@ -4,7 +4,7 @@
     <nav class="navbar border-bottom py-1" style="background:#E1E8ED;">
         <div class="container">
             <a class="navbar-brand" href="/" style="color:blue;text-transform:uppercase;">
-                <img src="{% static 'blog/logo.png' %}" alt="kimfitty" class="nav__insta__logo">{{custom|first}}
+                <img src="{% static 'blog/logo.png' %}" alt="" class="nav__insta__logo" style="border-radius:50%;">{{custom|first}}
             </a>
             <div class="search__input m-auto d-none d-md-block">
                 <!-- Form to search Users -->
@@ -18,7 +18,7 @@
                 <!-- Form to search Users End -->
 
             </div>
-            <ul class="navbar-nav ml-0 ml-md-auto d-flex flex-row">
+            <ul class="navbar-nav ml-0 ml-md-0 d-flex flex-row">
 
                 <!-- Home Button -->
                 <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
@@ -36,6 +36,11 @@
                 <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
                     <a href="{% url 'liked_posts_view' %}" class="text-decoration-none text-reset"><span
                             class="nav__icons far fa-heart"></span></a>
+                </li>
+                <!-- Categories -->
+                <li class="nav-item px-md-3 px-2 d-flex flex-column justify-content-center">
+                    <a href="{% url 'category_page' %}" class="text-decoration-none text-reset"><span
+                            class="nav__icons far fa-list"></span></a>
                 </li>
 
                 <!-- Dropdown for more menu -->

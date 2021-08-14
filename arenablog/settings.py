@@ -84,6 +84,8 @@ TEMPLATES = [
                 'core.context_processors.gallery',
                 'core.context_processors.contacts',
                 'core.context_processors.customname',
+                'core.context_processors.update_logo',
+                'core.context_processors.post_categories',
             ],
         },
     },

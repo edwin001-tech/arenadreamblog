@@ -4,10 +4,9 @@
 {% block content %}
 <div class="row">
     <div class="col-12 col-md-3 pr-4 dont-move">
-        <a href="/"><h2 style="text-transform:uppercase;color:blue;"><img class="img-fluid" height="80%"
-                                                                          src="{% static 'blog/logo.png' %}"
-                                                                          style="border-radius:50%;" width="30%">Kimfity
-            kim</h2></a><br>
+        <a href="/"><h2 style="text-transform:uppercase;color:blue;">
+            <img class="img-fluid" height="80%" src="{% static 'blog/logo.png' %}"
+                 style="border-radius:50%;" width="30%">{{custom|first}}</h2></a><br>
         <div class="profile-section">
             <h3 class=" p-2">
                 Profile
@@ -64,14 +63,14 @@
                     <div class="col-6">
                         <h3 class=" follow-click">
                             <a href="">
-                                {{ user.following_count }}
+                                {{ user.follower_count }}
                             </a>
                         </h3>
                     </div>
                     <div class="col-6">
                         <a href="">
                             <h3 class=" follow-click">
-                                {{ user.follower_count }}
+                                {{ user.following_count }}
                             </h3>
                         </a>
                     </div>
@@ -349,11 +348,11 @@
     </div>
 </section>
 <!-- Gallery Section-->
-<p><a href="">Terms</a>,
-    <a href="">Privacy policy</a>,
-    <a href="">Cookies</a>,
-    <a href="">Ads info</a>,
-    <a href="">More</a>
+<p><a href="{% url 'site_policies_view' %}">Terms</a>,
+    <a href="{% url 'site_policies_view' %}">Privacy policy</a>,
+    <a href="{% url 'site_policies_view' %}">Cookies</a>,
+    <a href="{% url 'site_policies_view' %}">Ads info</a>,
+    <a href="{% url 'explore_posts_view' %}">More</a>
     © 2021 TDBSoft, Inc.</p>
 
 </div>

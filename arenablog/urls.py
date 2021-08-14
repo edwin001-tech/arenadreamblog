@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('', include('user.urls')),
     path('signup/', include('marketing.urls')),
+    path('siteconfig/', include('siteconfig.urls')),
 
 ]
 

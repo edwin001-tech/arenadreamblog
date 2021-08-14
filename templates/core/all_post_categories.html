@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/user/all_profiles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+
+        <!-- Navbar brand -->
+        <span class="navbar-brand">Categories:</span>
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                {% for category in categories %}
+                <li class="nav-item">
+                    <a href="{% url 'category' category.slug %}" class="nav-link waves-effect">
+                        <img src="{{ category.category_image.url }}" class="profile__pic" width="100%"
+                             style="border-radius:50%;">
+                        <strong>{{category.title}}</strong></a>
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+    </nav>
+    <div class="row">
+        <div class="card-header">
+            <h3 class="m-0" style="color: #5f5f5f;">{{tag_line}}</h3>
+        </div>
+        <div class="col-12 col-md-8 card offset-md-2">
+            <!-- All categories -->
+            <h1 style="color:black;">{{category}}</h1>
+            {% for post in category.post_set.all %}
+            <!-- Single category Row -->
+            <a href="{{post.get_absolute_url}}" class="text-decoration-none">
+                <div class="row py-3 px-5 border-bottom">
+                    <!-- post picture -->
+                    {% if post.image %}
+                    <img src="/media/{{ user.picture }}" class="rounded-circle z-depth-0 profile__pic" width="100%">
+                    {% else %}
+                    <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                         class="profile__pic rounded-circle z-depth-0" width="50%">
+                    {% endif %}
+                    <!-- post picture end -->
+                    <div class="d-flex mx-4">
+                        <!--  post title -->
+                        <p class="m-auto" style="color:blue;"><a href="{{post.get_absolute_url}}">{{ post.title }}</a>
+                        </p>
+                    </div>
+                    <div class="ml-auto">
+                        <button class="btn btn-sm btn-primary mx-2" type="submit">
+                            <a href="{{post.get_absolute_url}}">view post</a>
+                        </button>
+                    </div>
+                </div>
+            </a>
+            <!-- Single post Row end -->
+            {% endfor %}
+            <!-- All User Profiles end -->
+        </div>
+    </div>
+</div>
+{% endblock %}

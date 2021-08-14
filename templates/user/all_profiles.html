@@ -15,7 +15,7 @@
                     {% for user in all_profiles %}
 
                     <!-- Single user Profile Row -->
-                    <a href="{% url 'profile_view' user.username %}" class="text-decoration-none">
+                    <a href="{% url 'profile_view' user.username %}" class="text-decoration-none" style="color:black;">
                         <div class="row py-3 px-5 border-bottom">
 
                             <!-- Profile picture -->
@@ -29,7 +29,7 @@
                             <div class="d-flex mx-4">
 
                                 <!-- User's full name -->
-                                <p class="m-auto">{{ user.full_name }}</p>
+                                <p class="m-auto" style="color:black;">{{ user.full_name }}</p>
                                 
                             </div>
                             <div class="ml-auto">

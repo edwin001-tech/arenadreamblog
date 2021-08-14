@@ -10,7 +10,7 @@ def gallery(request):
     return {'galimgs':galimgs}
 
 def contacts(request):
-    c=Contacts.objects.order_by("-dateadded")[:6]
+    c=Contacts.objects.order_by("dateadded")[:6]
     return {'contacts':c}
 
 def customname(request):
@@ -20,3 +20,11 @@ def customname(request):
 def about_org(request):
     desk_details=About.objects.all()
     return {'desk_details':desk_details}
+
+def update_logo(request):
+    logo=UpdateLogo.objects.all()
+    return {'logo':logo}
+
+def post_categories(request):
+    categories=Category.objects.all()
+    return {'categories':categories}
