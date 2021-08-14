@@ -221,12 +221,12 @@
             <section class="gallery no-padding">
                 <div class="row">
                     <div class="mix col-lg-3 col-md-3 col-sm-6">
-                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
+                           <!--<div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
                             <img alt="..." class="img-fluid" src="{% static 'blog/logo.png' %}"  width="100%">
                             <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
                         </a></div>
                     </div>
-                     <div class="mix col-lg-3 col-md-3 col-sm-6">
+                      <div class="mix col-lg-3 col-md-3 col-sm-6">
                         <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
                             <img alt="..." class="img-fluid" src="{% static 'img/avatar-1.jpg' %}" width="100%">
                             <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
@@ -242,7 +242,14 @@
                         <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
                             <img alt="..." class="img-fluid" src="{% static 'img/avatar-3.jpg' %}"  width="100%">
                             <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
-                        </a></div>
+                        </a></div> --> 
+
+                        <div class="box">
+                            <span style="--i:1;"><img src="{% static 'img/avatar-1.jpg' %}" alt="images"></span>
+                            <span style="--i:2;"><img src="{% static 'img/avatar-2.jpg' %}" alt="images"></span>
+                            <span style="--i:3;"><img src="{% static 'img/avatar-3.jpg' %}" alt="images"></span>
+                           
+                        </div>
                     </div>
                 </div>
             </section>
