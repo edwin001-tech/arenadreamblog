@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title%} Policies|{% endblock %}
+
+{% block content %}
+<div class="container" style="background: -webkit-linear-gradient(45deg, #f09933 25%,#e6983c 0%,#dc2743 25%,#cc2366 60%,#bc1888 65%); ">
+    <div class="row">
+        <div class="col-12 my-4">
+            <div class="card profile__edit__card m-auto" style="background: -webkit-linear-gradient(45deg, #f09933 25%,#e6983c 0%,#dc2743 25%,#cc2366 60%,#bc1888 65%); ">
+                <div class="card-header">
+                    <h3 class="m-0" style="color: #5f5f5f;">{{tag_line}}</h3>
+                </div>
+                                    {% for c in contacts %}
+                <div class="card mr-4 ml-2 p-4 w-50 justify-content-center m-auto" style="background: -webkit-linear-gradient(25deg, #dc2743 25%,#e6983c 25%,#f09933 25%,#cc2366 75%,#bc1888 85%); ">
+                        <div class="col-12 col-md-3 d-flex">
+                            <label for="upload_profile_pic" class="profile__pic__btn">
+                                <!-- Profile Picture -->
+                                {% if user.picture %}
+                                <a href="{% url 'profile_edit_view' c.user.username %}">
+                                    <img src="{{ c.user.picture.url }}" class="profile__pic" width="100%"
+                                         style="border-radius:50%;">
+                                </a>
+                                {% else %}
+                                <img src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                     class="profile__pic" width="100%" style="border-radius:50%;">
+                                {% endif %}
+                                <!-- Profile Picture end -->
+                            </label>
+                        </div>
+                        <h5 class="text-white">Name:{{c.user.username}}</h5>
+                        <h4 style="color:pink;">Position:{{c.rank}}</h4>
+                        <p>Phone: {{c.phone}}</p>
+                        <p>Email: <a href="mailto:{{d.email}}" style="color:green;">{{c.user.email}}</a></p>
+                          <p>Date Joined: <b>{{c.dateadded}}</b> </p>
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
+
+
+

@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title%} Policies|{% endblock %}
+
+{% block content %}
+<div class="container" style="color:black;">
+    <div class="row">
+        <div class="col-12 my-4">
+            <div class="card profile__edit__card m-auto" style="color:black;">
+                <div class="card-header">
+                    <h3 class="m-0" style="color: #5f5f5f;">{{tag_line}}</h3>
+                </div>
+                {% for faq in faqs %}
+                <div class="card-body offset-md-0" style="color:black;">
+                    <p style="font-weight:bold; color:red;" class="my-4">{{faq.question}}
+                        <br>
+                        <span style="font-weight:bold; color:black;">{{faq.answer}}</span>
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
+
+
+
