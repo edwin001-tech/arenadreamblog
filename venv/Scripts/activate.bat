@@ -8,7 +8,11 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
+<<<<<<< HEAD
 set VIRTUAL_ENV=C:\Users\MyAdmin\PycharmProjects\arenadreamblog\venv
+=======
+set VIRTUAL_ENV=G:\mbugua\InstaClone\venv
+>>>>>>> 01457c977ad3d10e836dd9c570e350ea9e997c02
 
 if not defined PROMPT set PROMPT=$P$G
 

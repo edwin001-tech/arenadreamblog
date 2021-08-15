@@ -33,7 +33,11 @@ def search_blog(request):
 
 #search users
 class AllProfilesView(LoginRequiredMixin,View):
+<<<<<<< HEAD
     template_name = 'user/all_profiles.html'
+=======
+    template_name = 'user/all_post_categories.html'
+>>>>>>> 01457c977ad3d10e836dd9c570e350ea9e997c02
 
     def get(self, request, *args, **kwargs):
         search_term = request.GET.get('query')
