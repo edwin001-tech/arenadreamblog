@@ -1,14 +1,11 @@
 {% extends "core/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-<<<<<<< HEAD
 
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/feeds.css' %}">
 {% endblock %}
 
-=======
->>>>>>> 01457c977ad3d10e836dd9c570e350ea9e997c02
 {% block content %}
 <div class="row">
     <div class="col-12 col-md-3 pr-4 dont-move">
@@ -223,93 +220,61 @@
             </div>
         </article>
         {% endfor %}
-                           <!--Gallery-->
+        <!--Gallery-->
         <h1 class="my-3">GALLERY</h1>
         <article>
             <section class="gallery no-padding">
                 <div class="row">
-                    <div class="mix col-lg-3 col-md-3 col-sm-6">
-                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
-                            <img alt="..." class="img-fluid" src="{% static 'blog/logo.png' %}"  width="100%">
-                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
-                        </a></div>
+                    <div class="crusel-box">
+                        {% for img in galimgs %}
+                        <!--                            forloop.counter increments from 1 .. depending on the number of images available in the database. -->
+                        <!--                            If 10 images are uploaded,it will increment from 1 - 10,thus yielding i:1 ... i:10-->
+                        <span style="--i:{{forloop.counter}};"><img src="{{img.image.url}}" alt="images"
+                                                                    class="crusel-img" width="100%"></span>
+                        {% endfor %}
                     </div>
-                     <div class="mix col-lg-3 col-md-3 col-sm-6">
-                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
-                            <img alt="..." class="img-fluid" src="{% static 'img/avatar-1.jpg' %}" width="100%">
-                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
-                        </a></div>
-                    </div>
-                     <div class="mix col-lg-3 col-md-3 col-sm-6">
-                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
-                            <img alt="..." class="img-fluid" src="{% static 'img/avatar-2.jpg' %}"  width="100%">
-                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
-                        </a></div>
-                    </div>
-                     <div class="mix col-lg-3 col-md-3 col-sm-6">
-                        <div class="item"><a class="image" data-fancybox="gallery" href="{{im.image.url}}">
-                            <img alt="..." class="img-fluid" src="{% static 'img/avatar-3.jpg' %}"  width="100%">
-                            <div class="overlay d-flex align-items-center justify-content-center"><i class="icon-search"></i></div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        </a></div> -->
-                        <div class="crusel-box">
-                            {% for img in galimgs %}
-<!--                            forloop.counter increments from 1 .. depending on the number of images available in the database. -->
-<!--                            If 10 images are uploaded,it will increment from 1 - 10,thus yielding i:1 ... i:10-->
-                            <span style="--i:{{forloop.counter}};"><img src="{{img.image.url}}" alt="images" class="crusel-img" width="100%"></span>
-                            {% endfor %}
-                        </div>
-=======
-                        </a></div>
-                    </div>
->>>>>>> 01457c977ad3d10e836dd9c570e350ea9e997c02
-=======
-                        </a></div>
-                    </div>
->>>>>>> 01457c977ad3d10e836dd9c570e350ea9e997c02
                 </div>
-            </section>
-        </article>
-        <br>
-        <div class="full-width d-flex justify-content-center">
-            {% if is_paginated %}
-            {% if page_obj.has_previous %}
-            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
-               href="?page=1">First</a>
-            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
-               href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            {% endif %}
+    </section>
+    </article>
+    <br>
+    <div class="full-width d-flex justify-content-center">
+        {% if is_paginated %}
+        {% if page_obj.has_previous %}
+        <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+           href="?page=1">First</a>
+        <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+           href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
 
-            {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-            <a class="btn btn-sm btn-info mb-4 mr-2"
-               href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
-               href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
-            {% endfor %}
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-sm btn-info mb-4 mr-2"
+           href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+           href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
 
-            {% if page_obj.has_next %}
-            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
-               href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
-               href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-            {% endif %}
-            {% endif %}
-        </div>
+        {% if page_obj.has_next %}
+        <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+           href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="btn btn-sm btn-outline-secondary mb-4 mr-2"
+           href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+        {% endif %}
     </div>
-    <div class="col-12 col-md-3 dont-move">
-        <form action="{% url 'search_blog' %}" method="post">{% csrf_token %}
-            <div class="search-container">
-                <div class="search">
-                    <input id="zip-code-input" name="search" placeholder="Search The Blog" required type="text">
-                    <button style="border:0; background: transparent;" type="submit"><i class="fa fa-search"></i>
-                    </button>
-                    </a>
-        </form>
-    </div>
+</div>
+<div class="col-12 col-md-3 dont-move">
+    <form action="{% url 'search_blog' %}" method="post">{% csrf_token %}
+        <div class="search-container">
+            <div class="search">
+                <input id="zip-code-input" name="search" placeholder="Search The Blog" required type="text">
+                <button style="border:0; background: transparent;" type="submit"><i class="fa fa-search"></i>
+                </button>
+                </a>
+    </form>
+</div>
 </div>
 <h3 class=" mb-3 mt-4"> Trends </h3>
 

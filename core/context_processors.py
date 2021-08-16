@@ -6,11 +6,8 @@ def postfooter(request):
     return {'fposts':footerposts}
 
 def gallery(request):
-<<<<<<< HEAD
     galimgs=Gallery.objects.order_by('-timestamp')
-=======
     galimgs=Gallery.objects.order_by('-timestamp')[:4]
->>>>>>> 01457c977ad3d10e836dd9c570e350ea9e997c02
     return {'galimgs':galimgs}
 
 def contacts(request):
